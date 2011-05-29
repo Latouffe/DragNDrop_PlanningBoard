@@ -3,110 +3,149 @@
 <head>
     <meta charset="iso-8859-1">
     <title>Simple Agile Planning Board (IE compatible)</title>
-	<style>
-		body
-		{
-			font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-		}
-		#board
-		{
-			width: 910px;
-			min-height:100px;
-
-			position:relative;
-		}
-		.title
-		{
-			background-color:#52460a;
-			text-align:center;
-			color:white;
-			padding: 2px 0px;
-		}
-		#board > div
-		{
-			background-color: tan;
-			width: 300px;
-			min-height:150px;
-			border: 2px solid black;
-            display: table-cell;
-            border-collapse: collapse;
-		}
-		*[draggable=true]
-		{
-			float:left;
-			min-width: 50px;
-			min-height: 50px;
-			border: 2px solid black;
-			margin: 10px;
-            display: block;
-			font-weight:bold;
-            text-decoration: none;
-			min-height:60px;
-			background-image: -webkit-gradient(linear,
-            		left top, left bottom,
-					color-stop(0.63, white),
-            		color-stop(0.92, rgb(5,161,245)));
-            background-image:-moz-linear-gradient(
-                        center top,
-                        white 63%,
-                        rgb(5,161,245) 92%
-                    );
-            -webkit-background-size:1px 8px;
-            -moz-background-size:1px 8px;
-            background-size:1px 8px;
-            background-repeat:repeat;
-		}
-
-		.cardTitle
-		{
-			background-color: rgb(255,255,255);
-			border:2px solid white;
-		}
-
-	</style>
+    <style>
+    body {
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #board {
+	width: 1210px;
+	min-height:100px;
+	position:relative;
+    }
+    .title {
+	background-color:#52460a;
+	text-align:center;
+	color:white;
+	padding: 2px 0px;
+	font-size: 100%;
+	margin: 0;
+    }
+    #board > div > .title {
+	border: 2px solid black;
+	border-width: 0 2px;
+    }
+    #board > div:first-child > .title {
+	border-top-width: 2px;
+    }
+    #board > div > div {
+	background-color: tan;
+	width: 300px;
+	height: 200px;
+	border: 2px solid black;
+	border-width: 2px 0 2px 2px;
+	display: table-cell;
+	border-collapse: collapse;
+    }
+    #board > div > div:last-child {
+	border-right-width: 2px;
+    }
+    *[draggable=true] {
+	float:left;
+	min-width: 50px;
+	min-height: 50px;
+	border: 2px solid black;
+	margin: 10px;
+	display: block;
+	font-weight:bold;
+	text-decoration: none;
+	min-height:60px;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.63, white), color-stop(0.92, rgb(5,161,245)));
+	background-image:-moz-linear-gradient(center top, white 63%, rgb(5,161,245) 92%);
+	-webkit-background-size:1px 8px;
+	-moz-background-size:1px 8px;
+	background-size:1px 8px;
+	background-repeat:repeat;
+    }
+    .cardTitle {
+	background-color: rgb(255,255,255);
+	border:2px solid white;
+    }
+    </style>
 </head>
 <body>
     <div id="board">
-        <div id="todo" class="droptarget">
-        	<div class="title">To Do</div>
-            <a id="item1" draggable="true" href="#" onclick="return false;">
-                <div class="cardTitle">
-                    Learn HTML5
-                </div>
-            </a>
-            <a id="item2" draggable="true" href="#" onclick="return false;">
-                <div class="cardTitle">
-                   Learn CSS3
-                </div>
-            </a>
-            <a id="item3" draggable="true" href="#" onclick="return false;">
-                <div class="cardTitle">
-                    Make an amazing site
-                </div>
-            </a>
-            <a id="item4" draggable="true" href="#" onclick="return false;">
-                <div class="cardTitle">
-                    Impress my friends
-                </div>
-            </a>
-        </div>
-	<div id="inprogress" class="droptarget">
-		<div class="title">In Progress</div>
+	<div id="rob">
+	    <h1 class="title">Rob</h1>
+	    <div class="todo droptarget">
+		<h1 class="title">To Do</h1>
+		<a id="item1" draggable="true" href="#">
+		    <div class="cardTitle">
+			Learn HTML5
+		    </div>
+		</a>
+		<a id="item2" draggable="true" href="#">
+		    <div class="cardTitle">
+		       Learn CSS3
+		    </div>
+		</a>
+		<a id="item3" draggable="true" href="#">
+		    <div class="cardTitle">
+			Make an amazing site
+		    </div>
+		</a>
+		<a id="item4" draggable="true" href="#">
+		    <div class="cardTitle">
+			Impress my friends
+		    </div>
+		</a>
+	    </div>
+	    <div class="inprogress droptarget">
+		<h1 class="title">In Progress</h1>
+	    </div>
+	    <div class="done droptarget">
+		<h1 class="title">Done</h1>
+	    </div>
+	    <div class="onhold droptarget">
+		<h1 class="title">On Hold</h1>
+	    </div>
 	</div>
-	<div id="done" class="droptarget">
-		<div class="title">Done</div>
-	</div>
-	<div id="onhold" class="droptarget">
-		<div class="title">On Hold</div>
+	<div id="john">
+	    <h1 class="title">John</h1>
+	    <div class="todo droptarget">
+		<h1 class="title">To Do</h1>
+		<a id="item5" draggable="true" href="#">
+		    <div class="cardTitle">
+			Learn HTML5
+		    </div>
+		</a>
+		<a id="item6" draggable="true" href="#">
+		    <div class="cardTitle">
+		       Learn CSS3
+		    </div>
+		</a>
+		<a id="item7" draggable="true" href="#">
+		    <div class="cardTitle">
+			Make an amazing site
+		    </div>
+		</a>
+		<a id="item8" draggable="true" href="#">
+		    <div class="cardTitle">
+			Impress my friends
+		    </div>
+		</a>
+	    </div>
+	    <div class="inprogress droptarget">
+		<h1 class="title">In Progress</h1>
+	    </div>
+	    <div class="done droptarget">
+		<h1 class="title">Done</h1>
+	    </div>
+	    <div class="onhold droptarget">
+		<h1 class="title">On Hold</h1>
+	    </div>
 	</div>
     </div>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js">
+    <script src="jquery-1.5.2.min.js">
     </script>
     <script type="text/javascript">
     $('document').ready(init);
     function init(){
-        $('#board').bind('dragstart', function(event) {
-            event.originalEvent.dataTransfer.setData("Text", event.target.getAttribute('id'));
+        /*$('#board a[draggable]').bind('click', function(event) {
+	    event.preventDefault();
+	    return false;
+	})*/
+	$('#board').bind('dragstart', function(event) {
+            event.originalEvent.dataTransfer.setData("Text", $(event.target).closest('a').attr('id'));
         });
         // bind the dragover event on the board sections
         $('#board').bind('dragover', function(event) {
