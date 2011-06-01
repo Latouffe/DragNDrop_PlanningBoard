@@ -63,11 +63,19 @@
     </style>
 </head>
 <body>
+    <menu>
+	<button onclick="add_developer();">Add developer</button>
+	<button onclick="remove_developer();">Remove developer</button>
+	<button onclick="add_task();">Add task</button>
+	<button onclick="remove_task();">Remove task</button>
+	<button onclick="add_status();">Add status</button>
+	<button onclick="remove_status();">Remove status</button>
+    </menu>
     <div id="board">
 	<div id="rob">
 	    <h1 class="title">Rob</h1>
 	    <div class="todo droptarget">
-		<h1 class="title">To Do</h1>
+		<h2 class="title">To Do</h1>
 		<a id="item1" draggable="true" href="#">
 		    <div class="cardTitle">
 			Learn HTML5
@@ -90,19 +98,19 @@
 		</a>
 	    </div>
 	    <div class="inprogress droptarget">
-		<h1 class="title">In Progress</h1>
+		<h2 class="title">In Progress</h1>
 	    </div>
 	    <div class="done droptarget">
-		<h1 class="title">Done</h1>
+		<h2 class="title">Done</h1>
 	    </div>
 	    <div class="onhold droptarget">
-		<h1 class="title">On Hold</h1>
+		<h2 class="title">On Hold</h1>
 	    </div>
 	</div>
 	<div id="john">
 	    <h1 class="title">John</h1>
 	    <div class="todo droptarget">
-		<h1 class="title">To Do</h1>
+		<h2 class="title">To Do</h1>
 		<a id="item5" draggable="true" href="#">
 		    <div class="cardTitle">
 			Learn JavaScript
@@ -125,18 +133,17 @@
 		</a>
 	    </div>
 	    <div class="inprogress droptarget">
-		<h1 class="title">In Progress</h1>
+		<h2 class="title">In Progress</h1>
 	    </div>
 	    <div class="done droptarget">
-		<h1 class="title">Done</h1>
+		<h2 class="title">Done</h1>
 	    </div>
 	    <div class="onhold droptarget">
-		<h1 class="title">On Hold</h1>
+		<h2 class="title">On Hold</h1>
 	    </div>
 	</div>
     </div>
-    <script src="jquery-1.5.2.min.js">
-    </script>
+    <script src="jquery-1.5.2.min.js"></script>
     <script type="text/javascript">
     $('document').ready(init);
     function init(){
@@ -163,6 +170,56 @@
 	    // without this, FF will try and go to a URL with your id's name
 	    event.preventDefault();
         });
+    }
+    function add_developer() {
+	var dev = window.prompt('Enter the developer\'s name');
+	var devid = dev.replace(/\s/g,'').toLocaleLowerCase();
+	if (devid.length > 0) {
+	    if ($('#' + devid).attr('id') == devid) { window.alert('Already added'); return; }
+	    var new_dev = $('#board > div:first-child')
+		.clone()
+		.attr('id',devid);
+	    new_dev.find('a').remove();
+	    new_dev.find('h1').text(dev);
+	    $('#board').append(new_dev);
+	}
+    }
+    function remove_developer() {
+	//need to add check here that there's at least one developer
+	$('#board')
+	    .css('cursor','crosshair')
+	    .click(function(event) {
+	        $(event.target).closest('#board > div').remove();
+		$('#board').css('cursor','default').unbind('click');    
+	});
+    }
+    function add_task() {
+	var task = window.prompt('Enter task name');
+	var taskid = task.replace(/\s/g,'').toLocaleLowerCase();
+	if (taskid.length > 0) {
+	    if ($('#' + taskid).attr('id') == taskid) { window.alert('Already added'); return; }
+	    var new_task = $('#board a[draggable]')
+		.first()
+		.clone()
+		.attr('id', taskid);
+	    new_task.find('.cardTitle').text(task);
+	    $('#board > div > div').first().append(new_task);
+	}
+    }
+    function remove_task() {
+	//need to add check here that there's at least one task
+	$('#board')
+	    .css('cursor','crosshair')
+	    .click(function(event) {
+	        $(event.target).closest('#board a[draggable]').remove();
+		$('#board').css('cursor','default').unbind('click');    
+	});
+    }
+    function add_status() {
+	
+    }
+    function remove_status() {
+	
     }
     </script>
 </body>
