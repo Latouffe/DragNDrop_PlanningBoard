@@ -8,9 +8,9 @@
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     #board {
-	width: 1210px;
-	min-height:100px;
 	position:relative;
+	display: table;
+	width: 100%;
     }
     .title {
 	background-color:#52460a;
@@ -29,7 +29,8 @@
     }
     #board > div > div {
 	background-color: tan;
-	width: 300px;
+	min-width: 300px;
+	width: 50%;
 	height: 200px;
 	border: 2px solid black;
 	border-width: 2px 0 2px 2px;
@@ -103,9 +104,6 @@
 	    <div class="done droptarget">
 		<h2 class="title">Done</h1>
 	    </div>
-	    <div class="onhold droptarget">
-		<h2 class="title">On Hold</h1>
-	    </div>
 	</div>
 	<div id="john">
 	    <h1 class="title">John</h1>
@@ -138,27 +136,19 @@
 	    <div class="done droptarget">
 		<h2 class="title">Done</h1>
 	    </div>
-	    <div class="onhold droptarget">
-		<h2 class="title">On Hold</h1>
-	    </div>
 	</div>
     </div>
     <script src="jquery-1.5.2.min.js"></script>
     <script type="text/javascript">
     $('document').ready(init);
     function init(){
-        /*$('#board a[draggable]').bind('click', function(event) {
-	    event.preventDefault();
-	    return false;
-	})*/
 	$('#board').bind('dragstart', function(event) {
-            event.originalEvent.dataTransfer.setData("Text", $(event.target).closest('a').attr('id'));
+            event.originalEvent.dataTransfer.setData("Text", $(event.target).closest('a[id]').attr('id'));
         });
         // bind the dragover event on the board sections
         $('#board').bind('dragover', function(event) {
 	    if ($(event.target).closest('.droptarget').hasClass('droptarget')) {
 		event.preventDefault();
-		return false;
 	    }
         });
         // bind the drop event on the board sections
@@ -173,7 +163,7 @@
     }
     function add_developer() {
 	var dev = window.prompt('Enter the developer\'s name');
-	var devid = dev.replace(/\s/g,'').toLocaleLowerCase();
+	var devid = dev.replace(/\s/g,'').toLowerCase();
 	if (devid.length > 0) {
 	    if ($('#' + devid).attr('id') == devid) { window.alert('Already added'); return; }
 	    var new_dev = $('#board > div:first-child')
@@ -195,7 +185,7 @@
     }
     function add_task() {
 	var task = window.prompt('Enter task name');
-	var taskid = task.replace(/\s/g,'').toLocaleLowerCase();
+	var taskid = task.replace(/\s/g,'').toLowerCase();
 	if (taskid.length > 0) {
 	    if ($('#' + taskid).attr('id') == taskid) { window.alert('Already added'); return; }
 	    var new_task = $('#board a[draggable]')
@@ -216,10 +206,32 @@
 	});
     }
     function add_status() {
-	
+	var stat = window.prompt('Enter status name');
+	var statclass = stat.replace(/\s/g,'').toLowerCase();
+	if (statclass.length > 0) {
+	    if ($('#board > div:first-child > div.' + statclass).hasClass(statclass)) { window.alert('Already added'); return; }
+	    var new_stat = $('#board > div > div')
+		.first()
+		.clone();
+	    var cc = new_stat.attr('class').replace('droptarget','').replace(/\s/g,'');
+	    new_stat
+		.removeClass(cc)
+		.addClass(statclass);
+	    new_stat.find('h2.title').text(stat);
+	    new_stat.find('a[draggable]').remove();
+	    $('#board > div').append(new_stat);
+	}
     }
     function remove_status() {
-	
+	//need to add check here that there's at least one status
+	$('#board')
+	    .css('cursor','crosshair')
+	    .click(function(event) {
+	        var rstat = $(event.target).closest('.droptarget');
+		var rclass = rstat.attr('class').replace('droptarget','').replace(/\s/g,'');
+		$('.' + rclass).remove();
+		$('#board').css('cursor','default').unbind('click');    
+	});
     }
     </script>
 </body>
