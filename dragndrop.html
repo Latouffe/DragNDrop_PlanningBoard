@@ -150,16 +150,16 @@
 	    if ($(event.target).closest('.droptarget').hasClass('droptarget')) {
 		event.preventDefault();
 	    }
-        });
-        // bind the drop event on the board sections
-	$('#board').bind('drop', function(event) {
+        }).bind('drop', function(event) {
 	    var notecard = event.originalEvent.dataTransfer.getData("Text");
 	    var drop = $(event.target).closest('.droptarget');
 	    drop.append($('#' + notecard));
 	    // Turn off the default behaviour
 	    // without this, FF will try and go to a URL with your id's name
 	    event.preventDefault();
-        });
+        }).bind('click', function(event) {
+	    event.preventDefault();
+	});
     }
     function add_developer() {
 	var dev = window.prompt('Enter the developer\'s name');
